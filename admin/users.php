@@ -1,20 +1,21 @@
-   <?php include 'header.php';
-   
-   if ($admin!=1) {
-      header("location:index.php");
-   }
-   
-   ?>
+<?php include 'header.php';
+
+if ($admin!=1) {
+   header("location:index.php");
+}
+?>
                <!-- Begin Page Content -->
                <div class="container-fluid">
+
+               
                   <!-- Page Heading -->
-                  <h5 class="mb-2 text-gray-800">Blog Categories</h5>
+                  <h5 class="mb-2 text-gray-800">Blog Users</h5>
                   <!-- DataTales Example -->
                   <div class="card shadow">
                      <div class="card-header py-3 d-flex justify-content-between">
                         <div>
-                           <a href="add_cat.php">
-                              <h6 class="font-weight-bold text-primary mt-2">Add New</h6>
+                           <a href="add_user.php">
+                              <h6 class="font-weight-bold text-primary mt-2">Create User</h6>
                            </a>
                         </div>
                         <div>
@@ -34,13 +35,15 @@
                               <thead>
                                  <tr>
                                     <th>Sl.No</th>
-                                    <th>Category Name</th>
+                                    <th>User Name</th>
+                                    <th>Email</th>
+                                    <th>role</th>
                                     <th colspan="2">Action</th>
                                  </tr>
                               </thead>
                               <tbody>
                                  <?php
-                                 $sql= "SELECT *FROM catagores";
+                                 $sql= "SELECT *FROM user";
                                  $query = mysqli_query($con, $sql);
                                  $rows = mysqli_num_rows($query);
                                  $count = 0;
@@ -49,10 +52,21 @@
                                        ?>
                                        <tr>
                                           <th><?= ++$count?></th>
-                                          <th><?= $row ['cat_name']?></th>
+                                          <th><?= $row ['username']?></th>
+                                          <th><?= $row ['email']?></th>
+                                          <th><?php 
+                                          $role= $row ['role'];
+                                          if ($role==1) {
+                                             echo "Admin";
+                                          }
+                                          else {
+                                             echo "Co-Admin";
+                                          }
+                                          ?>
+                                          </th>
                                           <th>
-                                             <a href="edit_cat.php?id=<?= $row ['cat_id']?>" class="btn btn-danger btn-sm">Edit</a>
-                                             <a href="delete_cat.php?id=<?= $row ['cat_id']?>" class="btn btn-primary btn-sm">Delete</a>
+                                             <a href="edit_user.php?id=<?= $row ['user_id']?>" class="btn btn-danger btn-sm">Edit</a>
+                                             <a href="delete_user.php?id=<?= $row ['user_id']?>" class="btn btn-primary btn-sm">Delete</a>
                                           </th>
                                        </tr>
                                     <?php

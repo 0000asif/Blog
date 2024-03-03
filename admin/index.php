@@ -1,4 +1,9 @@
-<?php include 'header.php';?>
+<?php include 'header.php';
+
+if(isset($_SESSION["user_data"])) {
+   $userID= $_SESSION["user_data"][0];
+} 
+?>
                <!-- Begin Page Content -->
                <div class="container-fluid">
                   <!-- Page Heading -->
@@ -7,7 +12,7 @@
                   <div class="card shadow">
                      <div class="card-header py-3 d-flex justify-content-between">
                         <div>
-                           <a href="">
+                           <a href="add_blog.php">
                               <h6 class="font-weight-bold text-primary mt-2">Add New</h6>
                            </a>
                         </div>
@@ -36,6 +41,31 @@
                                  </tr>
                               </thead>
                               <tbody>
+                                 <?php
+                                 
+                                 $sql=" SELECT * FROM blog LEFT JOIN catagores ON blog.category=catagores.cat_id LEFT JOIN user ON blog.author_id= user.user_id WHERE user_id='$userID' ORDER  BY blog.publish_date DESC";
+
+                                 $querry= mysqli_query($con, $sql);
+                                 $rows= mysqli_num_rows($querry);
+                                 $count=0;
+                                 if ($rows) {
+                                    while ($row = mysqli_fetch_assoc($querry)) { ?>
+                                    <tr> 
+                                       <th><?= ++$count?></th>
+                                       <th><?= $row ['blog_title']?></th>
+                                       <th><?= $row ['cat_name']?></th>
+                                       <th><?= $row ['username']?></th>
+                                       <th><?= date('d.m.Y',strtotime($row['publish_date']))?></th>
+                                       <th>
+                                             <a href="edit_blog.php?id=<?= $row ['blog_id']?>" class="btn btn-danger btn-sm">Edit</a>
+                                             <a href="delete_blog.php?id=<?= $row ['blog_id']?>" class="btn btn-primary btn-sm">Delete</a>
+                                          </th>
+                                       
+                                    </tr>
+                                    
+                                    <?php }
+                                 }
+                                 ?>
                               </tbody>
                            </table>
                         </div>

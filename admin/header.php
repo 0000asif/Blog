@@ -40,11 +40,18 @@ if(!isset($_SESSION["user_data"])) {
             <hr class="sidebar-divider">
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-               <a class="nav-link" href=""> <span>Blogs</span></a>
+               <a class="nav-link" href="index.php"> <span>Blogs</span></a>
             </li>
             <!-- Divider -->
             <hr class="sidebar-divider">
             <!-- Nav Item - Tables -->
+            <?php
+            if (isset($_SESSION['user_data'])) {
+               $admin=$_SESSION['user_data']['2'];
+            }
+            if ($admin==1) {
+
+            ?>
             <li class="nav-item">
                <a class="nav-link collapsed" href="Categories.php"> <span>Categories</span> </a>
             </li>
@@ -52,10 +59,11 @@ if(!isset($_SESSION["user_data"])) {
             <hr class="sidebar-divider">
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-               <a class="nav-link collapsed" href=""> <span>Users</span> </a>
+               <a class="nav-link collapsed" href="users.php"> <span>Users</span> </a>
             </li>
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
+            <?php } ?>
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                <button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -124,3 +132,9 @@ if(!isset($_SESSION["user_data"])) {
                   </ul>
                </nav>
                <!-- End header -->
+
+
+
+
+
+               

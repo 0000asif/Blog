@@ -1,4 +1,5 @@
 <?php 
+ob_start();
 include 'header.php';
 include 'connect.php';
 session_start();
@@ -36,6 +37,9 @@ if(isset($_SESSION["user_data"])) {
     </div>
 </div>
 <?php
+include 'footer.php';
+
+
 if(isset($_POST['login_btn'])){
 $email = mysqli_real_escape_string($con, $_POST['email']);
 $password = mysqli_real_escape_string($con,sha1($_POST['password']));
@@ -48,6 +52,7 @@ if($data){
     $user_data = array($result['user_id'],$result['username'],$result['role'],);
     $_SESSION['user_data']=$user_data;
     header("location:admin/index.php");
+   //header("location:http://localhost:3000/admin/index.php");
 }
 else{
     
@@ -55,7 +60,6 @@ else{
     header("location:login.php");
 }
 }
+
+ob_end_flush();
 ?>
-
-
-<?php include 'footer.php';?>

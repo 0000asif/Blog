@@ -1,6 +1,9 @@
 <?php include "header.php";
 include "../connect.php";
 $cat_id = $_GET["id"];
+if (empty($cat_id)) {
+    header("location:categories.php");
+}
 $sql= "SELECT * FROM catagores WHERE cat_id={$cat_id}";
 $query = mysqli_query($con, $sql);
 $row = mysqli_fetch_assoc( $query );
